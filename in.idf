@@ -1,0 +1,2884 @@
+!- Windows Line endings 
+
+Version,
+    9.5;                      !- Version Identifier
+
+SimulationControl,
+    No,                       !- Do Zone Sizing Calculation
+    No,                       !- Do System Sizing Calculation
+    No,                       !- Do Plant Sizing Calculation
+    Yes,                      !- Run Simulation for Sizing Periods
+    Yes,                      !- Run Simulation for Weather File Run Periods
+    No,                       !- Do HVAC Sizing Simulation for Sizing Periods
+    1;                        !- Maximum Number of HVAC Sizing Simulation Passes
+
+Building,
+    Untitled,                 !- Name
+    0,                        !- North Axis
+    City,                     !- Terrain
+    0.04,                     !- Loads Convergence Tolerance Value
+    0.4,                      !- Temperature Convergence Tolerance Value
+    FullInteriorAndExterior,    !- Solar Distribution
+    25,                       !- Maximum Number of Warmup Days
+    6;                        !- Minimum Number of Warmup Days
+
+Timestep,
+    4;                        !- Number of Timesteps per Hour
+
+Site:Location,
+    CHICAGO_IL_USA TMY2-94846,    !- Name
+    41.78,                    !- Latitude
+    -87.75,                   !- Longitude
+    -6,                       !- Time Zone
+    190;                      !- Elevation
+
+RunPeriod,
+    1,                        !- Name
+    1,                        !- Begin Month
+    1,                        !- Begin Day of Month
+    ,                         !- Begin Year
+    12,                       !- End Month
+    31,                       !- End Day of Month
+    ,                         !- End Year
+    ,                         !- Day of Week for Start Day
+    Yes,                      !- Use Weather File Holidays and Special Days
+    Yes,                      !- Use Weather File Daylight Saving Period
+    No,                       !- Apply Weekend Holiday Rule
+    Yes,                      !- Use Weather File Rain Indicators
+    Yes,                      !- Use Weather File Snow Indicators
+    ;                         !- Treat Weather as Actual
+
+RunPeriodControl:SpecialDays,
+    New Years Day,            !- Name
+    January 1,                !- Start Date
+    1,                        !- Duration
+    Holiday;                  !- Special Day Type
+
+RunPeriodControl:SpecialDays,
+    Veterans Day,             !- Name
+    November 11,              !- Start Date
+    1,                        !- Duration
+    Holiday;                  !- Special Day Type
+
+RunPeriodControl:SpecialDays,
+    Christmas,                !- Name
+    December 25,              !- Start Date
+    1,                        !- Duration
+    Holiday;                  !- Special Day Type
+
+RunPeriodControl:SpecialDays,
+    Independence Day,         !- Name
+    July 4,                   !- Start Date
+    1,                        !- Duration
+    Holiday;                  !- Special Day Type
+
+RunPeriodControl:SpecialDays,
+    MLK Day,                  !- Name
+    3rd Monday in January,    !- Start Date
+    1,                        !- Duration
+    Holiday;                  !- Special Day Type
+
+RunPeriodControl:SpecialDays,
+    Presidents Day,           !- Name
+    3rd Monday in February,    !- Start Date
+    1,                        !- Duration
+    Holiday;                  !- Special Day Type
+
+RunPeriodControl:SpecialDays,
+    Memorial Day,             !- Name
+    Last Monday in May,       !- Start Date
+    1,                        !- Duration
+    Holiday;                  !- Special Day Type
+
+RunPeriodControl:SpecialDays,
+    Labor Day,                !- Name
+    1st Monday in September,    !- Start Date
+    1,                        !- Duration
+    Holiday;                  !- Special Day Type
+
+RunPeriodControl:SpecialDays,
+    Columbus Day,             !- Name
+    2nd Monday in October,    !- Start Date
+    1,                        !- Duration
+    Holiday;                  !- Special Day Type
+
+RunPeriodControl:SpecialDays,
+    Thanksgiving,             !- Name
+    4th Thursday in November,    !- Start Date
+    1,                        !- Duration
+    Holiday;                  !- Special Day Type
+
+RunPeriodControl:DaylightSavingTime,
+    2nd Sunday in March,      !- Start Date
+    1st Sunday in November;    !- End Date
+
+ScheduleTypeLimits,
+    Any Number;               !- Name
+
+ScheduleTypeLimits,
+    Fraction,                 !- Name
+    0,                        !- Lower Limit Value
+    1,                        !- Upper Limit Value
+    CONTINUOUS;               !- Numeric Type
+
+ScheduleTypeLimits,
+    Temperature,              !- Name
+    -60,                      !- Lower Limit Value
+    200,                      !- Upper Limit Value
+    CONTINUOUS;               !- Numeric Type
+
+ScheduleTypeLimits,
+    On/Off,                   !- Name
+    0,                        !- Lower Limit Value
+    1,                        !- Upper Limit Value
+    DISCRETE;                 !- Numeric Type
+
+ScheduleTypeLimits,
+    Control Type,             !- Name
+    0,                        !- Lower Limit Value
+    4,                        !- Upper Limit Value
+    DISCRETE;                 !- Numeric Type
+
+ScheduleTypeLimits,
+    Humidity,                 !- Name
+    10,                       !- Lower Limit Value
+    90,                       !- Upper Limit Value
+    CONTINUOUS;               !- Numeric Type
+
+ScheduleTypeLimits,
+    Number;                   !- Name
+
+Schedule:Compact,
+    Office Lights Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays,            !- Field 2
+    Until: 05:00,             !- Field 3
+    0.05,                     !- Field 4
+    Until: 07:00,             !- Field 5
+    0.1,                      !- Field 6
+    Until: 08:00,             !- Field 7
+    0.3,                      !- Field 8
+    Until: 17:00,             !- Field 9
+    0.9,                      !- Field 10
+    Until: 18:00,             !- Field 11
+    0.5,                      !- Field 12
+    Until: 20:00,             !- Field 13
+    0.3,                      !- Field 14
+    Until: 22:00,             !- Field 15
+    0.2,                      !- Field 16
+    Until: 23:00,             !- Field 17
+    0.1,                      !- Field 18
+    Until: 24:00,             !- Field 19
+    0.05,                     !- Field 20
+    For: SummerDesignDay,     !- Field 21
+    Until: 24:00,             !- Field 22
+    1.0,                      !- Field 23
+    For: Saturday,            !- Field 24
+    Until: 06:00,             !- Field 25
+    0.05,                     !- Field 26
+    Until: 08:00,             !- Field 27
+    0.1,                      !- Field 28
+    Until: 12:00,             !- Field 29
+    0.3,                      !- Field 30
+    Until: 17:00,             !- Field 31
+    0.15,                     !- Field 32
+    Until: 24:00,             !- Field 33
+    0.05,                     !- Field 34
+    For: WinterDesignDay,     !- Field 35
+    Until: 24:00,             !- Field 36
+    0.0,                      !- Field 37
+    For: Sunday Holidays AllOtherDays,    !- Field 38
+    Until: 24:00,             !- Field 39
+    0.05;                     !- Field 40
+
+Schedule:Compact,
+    Office Equipment Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays,            !- Field 2
+    Until: 08:00,             !- Field 3
+    0.40,                     !- Field 4
+    Until: 12:00,             !- Field 5
+    0.90,                     !- Field 6
+    Until: 13:00,             !- Field 7
+    0.80,                     !- Field 8
+    Until: 17:00,             !- Field 9
+    0.90,                     !- Field 10
+    Until: 18:00,             !- Field 11
+    0.50,                     !- Field 12
+    Until: 24:00,             !- Field 13
+    0.40,                     !- Field 14
+    For: SummerDesignDay,     !- Field 15
+    Until: 24:00,             !- Field 16
+    1.0,                      !- Field 17
+    For: Saturday,            !- Field 18
+    Until: 06:00,             !- Field 19
+    0.30,                     !- Field 20
+    Until: 08:00,             !- Field 21
+    0.4,                      !- Field 22
+    Until: 12:00,             !- Field 23
+    0.5,                      !- Field 24
+    Until: 17:00,             !- Field 25
+    0.35,                     !- Field 26
+    Until: 24:00,             !- Field 27
+    0.30,                     !- Field 28
+    For: WinterDesignDay,     !- Field 29
+    Until: 24:00,             !- Field 30
+    0.0,                      !- Field 31
+    For: Sunday Holidays AllOtherDays,    !- Field 32
+    Until: 24:00,             !- Field 33
+    0.30;                     !- Field 34
+
+Schedule:Compact,
+    Office Occupancy Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays,            !- Field 2
+    Until: 06:00,             !- Field 3
+    0.0,                      !- Field 4
+    Until: 07:00,             !- Field 5
+    0.1,                      !- Field 6
+    Until: 08:00,             !- Field 7
+    0.2,                      !- Field 8
+    Until: 12:00,             !- Field 9
+    0.95,                     !- Field 10
+    Until: 13:00,             !- Field 11
+    0.5,                      !- Field 12
+    Until: 17:00,             !- Field 13
+    0.95,                     !- Field 14
+    Until: 18:00,             !- Field 15
+    0.3,                      !- Field 16
+    Until: 20:00,             !- Field 17
+    0.1,                      !- Field 18
+    Until: 24:00,             !- Field 19
+    0.05,                     !- Field 20
+    For: SummerDesignDay,     !- Field 21
+    Until: 06:00,             !- Field 22
+    0.0,                      !- Field 23
+    Until: 22:00,             !- Field 24
+    1.0,                      !- Field 25
+    Until: 24:00,             !- Field 26
+    0.05,                     !- Field 27
+    For: Saturday,            !- Field 28
+    Until: 06:00,             !- Field 29
+    0.0,                      !- Field 30
+    Until: 08:00,             !- Field 31
+    0.1,                      !- Field 32
+    Until: 12:00,             !- Field 33
+    0.3,                      !- Field 34
+    Until: 17:00,             !- Field 35
+    0.1,                      !- Field 36
+    Until: 19:00,             !- Field 37
+    0.0,                      !- Field 38
+    Until: 24:00,             !- Field 39
+    0.0,                      !- Field 40
+    For: WinterDesignDay,     !- Field 41
+    Until: 24:00,             !- Field 42
+    0.0,                      !- Field 43
+    For: Sunday Holidays AllOtherDays,    !- Field 44
+    Until: 06:00,             !- Field 45
+    0.0,                      !- Field 46
+    Until: 18:00,             !- Field 47
+    0.0,                      !- Field 48
+    Until: 24:00,             !- Field 49
+    0.0;                      !- Field 50
+
+Schedule:Compact,
+    Infiltration Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays SummerDesignDay,    !- Field 2
+    Until: 06:00,             !- Field 3
+    1.0,                      !- Field 4
+    Until: 22:00,             !- Field 5
+    0.0,                      !- Field 6
+    Until: 24:00,             !- Field 7
+    1.0,                      !- Field 8
+    For: Saturday WinterDesignDay,    !- Field 9
+    Until: 06:00,             !- Field 10
+    1.0,                      !- Field 11
+    Until: 18:00,             !- Field 12
+    0.0,                      !- Field 13
+    Until: 24:00,             !- Field 14
+    1.0,                      !- Field 15
+    For: Sunday Holidays AllOtherDays,    !- Field 16
+    Until: 24:00,             !- Field 17
+    1.0;                      !- Field 18
+
+Schedule:Compact,
+    Infiltration Half On Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays SummerDesignDay,    !- Field 2
+    Until: 06:00,             !- Field 3
+    1.0,                      !- Field 4
+    Until: 22:00,             !- Field 5
+    0.5,                      !- Field 6
+    Until: 24:00,             !- Field 7
+    1.0,                      !- Field 8
+    For: Saturday WinterDesignDay,    !- Field 9
+    Until: 06:00,             !- Field 10
+    1.0,                      !- Field 11
+    Until: 18:00,             !- Field 12
+    0.5,                      !- Field 13
+    Until: 24:00,             !- Field 14
+    1.0,                      !- Field 15
+    For: Sunday Holidays AllOtherDays,    !- Field 16
+    Until: 24:00,             !- Field 17
+    1.0;                      !- Field 18
+
+Schedule:Compact,
+    Infiltration Quarter On Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays SummerDesignDay,    !- Field 2
+    Until: 06:00,             !- Field 3
+    1.0,                      !- Field 4
+    Until: 22:00,             !- Field 5
+    0.25,                     !- Field 6
+    Until: 24:00,             !- Field 7
+    1.0,                      !- Field 8
+    For: Saturday WinterDesignDay,    !- Field 9
+    Until: 06:00,             !- Field 10
+    1.0,                      !- Field 11
+    Until: 18:00,             !- Field 12
+    0.25,                     !- Field 13
+    Until: 24:00,             !- Field 14
+    1.0,                      !- Field 15
+    For: Sunday Holidays AllOtherDays,    !- Field 16
+    Until: 24:00,             !- Field 17
+    1.0;                      !- Field 18
+
+Schedule:Compact,
+    Hours of Operation Schedule,    !- Name
+    On/Off,                   !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays SummerDesignDay,    !- Field 2
+    Until: 06:00,             !- Field 3
+    0.0,                      !- Field 4
+    Until: 22:00,             !- Field 5
+    1.0,                      !- Field 6
+    Until: 24:00,             !- Field 7
+    0.0,                      !- Field 8
+    For: Saturday WinterDesignDay,    !- Field 9
+    Until: 06:00,             !- Field 10
+    0.0,                      !- Field 11
+    Until: 18:00,             !- Field 12
+    1.0,                      !- Field 13
+    Until: 24:00,             !- Field 14
+    0.0,                      !- Field 15
+    For: Sunday Holidays AllOtherDays,    !- Field 16
+    Until: 24:00,             !- Field 17
+    0.0;                      !- Field 18
+
+Schedule:Compact,
+    Always On,                !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    1.0;                      !- Field 4
+
+Schedule:Compact,
+    Always Off,               !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    0.0;                      !- Field 4
+
+Schedule:Compact,
+    Heating Setpoint Schedule,    !- Name
+    Temperature,              !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays,            !- Field 2
+    Until: 05:00,             !- Field 3
+    15.6,                     !- Field 4
+    Until: 19:00,             !- Field 5
+    21.0,                     !- Field 6
+    Until: 24:00,             !- Field 7
+    15.6,                     !- Field 8
+    For SummerDesignDay,      !- Field 9
+    Until: 24:00,             !- Field 10
+    15.6,                     !- Field 11
+    For: Saturday,            !- Field 12
+    Until: 06:00,             !- Field 13
+    15.6,                     !- Field 14
+    Until: 17:00,             !- Field 15
+    21.0,                     !- Field 16
+    Until: 24:00,             !- Field 17
+    15.6,                     !- Field 18
+    For: WinterDesignDay,     !- Field 19
+    Until: 24:00,             !- Field 20
+    21.0,                     !- Field 21
+    For: Sunday Holidays AllOtherDays,    !- Field 22
+    Until: 24:00,             !- Field 23
+    15.6;                     !- Field 24
+
+Schedule:Compact,
+    Cooling Setpoint Schedule,    !- Name
+    Temperature,              !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: Weekdays SummerDesignDay,    !- Field 2
+    Until: 06:00,             !- Field 3
+    30.0,                     !- Field 4
+    Until: 22:00,             !- Field 5
+    24.0,                     !- Field 6
+    Until: 24:00,             !- Field 7
+    30.0,                     !- Field 8
+    For: Saturday,            !- Field 9
+    Until: 06:00,             !- Field 10
+    30.0,                     !- Field 11
+    Until: 18:00,             !- Field 12
+    24.0,                     !- Field 13
+    Until: 24:00,             !- Field 14
+    30.0,                     !- Field 15
+    For WinterDesignDay,      !- Field 16
+    Until: 24:00,             !- Field 17
+    30.0,                     !- Field 18
+    For: Sunday Holidays AllOtherDays,    !- Field 19
+    Until: 24:00,             !- Field 20
+    30.0;                     !- Field 21
+
+Schedule:Compact,
+    Office Activity Schedule,    !- Name
+    Any Number,               !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    120.;                     !- Field 4
+
+Schedule:Compact,
+    Office Work Eff. Schedule,    !- Name
+    Fraction,                 !- Schedule Type Limits Name
+    Through: 12/31,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    0.0;                      !- Field 4
+
+Schedule:Compact,
+    Office Clothing Schedule,    !- Name
+    Any Number,               !- Schedule Type Limits Name
+    Through: 04/30,           !- Field 1
+    For: AllDays,             !- Field 2
+    Until: 24:00,             !- Field 3
+    1.0,                      !- Field 4
+    Through: 09/30,           !- Field 5
+    For: AllDays,             !- Field 6
+    Until: 24:00,             !- Field 7
+    0.5,                      !- Field 8
+    Through: 12/31,           !- Field 9
+    For: AllDays,             !- Field 10
+    Until: 24:00,             !- Field 11
+    1.0;                      !- Field 12
+
+Material,
+    F08 Metal surface,        !- Name
+    Smooth,                   !- Roughness
+    0.0008,                   !- Thickness
+    45.28,                    !- Conductivity
+    7824,                     !- Density
+    500;                      !- Specific Heat
+
+Material,
+    I01 25mm insulation board,    !- Name
+    MediumRough,              !- Roughness
+    0.0254,                   !- Thickness
+    0.03,                     !- Conductivity
+    43,                       !- Density
+    1210;                     !- Specific Heat
+
+Material,
+    I02 50mm insulation board,    !- Name
+    MediumRough,              !- Roughness
+    0.0508,                   !- Thickness
+    0.03,                     !- Conductivity
+    43,                       !- Density
+    1210;                     !- Specific Heat
+
+Material,
+    G01a 19mm gypsum board,    !- Name
+    MediumSmooth,             !- Roughness
+    0.019,                    !- Thickness
+    0.16,                     !- Conductivity
+    800,                      !- Density
+    1090;                     !- Specific Heat
+
+Material,
+    M11 100mm lightweight concrete,    !- Name
+    MediumRough,              !- Roughness
+    0.1016,                   !- Thickness
+    0.53,                     !- Conductivity
+    1280,                     !- Density
+    840;                      !- Specific Heat
+
+Material,
+    F16 Acoustic tile,        !- Name
+    MediumSmooth,             !- Roughness
+    0.0191,                   !- Thickness
+    0.06,                     !- Conductivity
+    368,                      !- Density
+    590;                      !- Specific Heat
+
+Material,
+    M01 100mm brick,          !- Name
+    MediumRough,              !- Roughness
+    0.1016,                   !- Thickness
+    0.89,                     !- Conductivity
+    1920,                     !- Density
+    790;                      !- Specific Heat
+
+Material,
+    M15 200mm heavyweight concrete,    !- Name
+    MediumRough,              !- Roughness
+    0.2032,                   !- Thickness
+    1.95,                     !- Conductivity
+    2240,                     !- Density
+    900;                      !- Specific Heat
+
+Material,
+    M05 200mm concrete block,    !- Name
+    MediumRough,              !- Roughness
+    0.2032,                   !- Thickness
+    1.11,                     !- Conductivity
+    800,                      !- Density
+    920;                      !- Specific Heat
+
+Material,
+    G05 25mm wood,            !- Name
+    MediumSmooth,             !- Roughness
+    0.0254,                   !- Thickness
+    0.15,                     !- Conductivity
+    608,                      !- Density
+    1630;                     !- Specific Heat
+
+Material,
+    AirGap,                   !- Name
+    Smooth,                   !- Roughness
+    0.03,                     !- Thickness
+    0.667,                    !- Conductivity
+    1.28,                     !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    F08Metalsurface,          !- Name
+    Smooth,                   !- Roughness
+    0.0008,                   !- Thickness
+    45.28,                    !- Conductivity
+    7824,                     !- Density
+    500,                      !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    I0125mminsulationboard,    !- Name
+    MediumRough,              !- Roughness
+    0.0254,                   !- Thickness
+    0.03,                     !- Conductivity
+    43,                       !- Density
+    1210,                     !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    I0250mminsulationboard,    !- Name
+    MediumRough,              !- Roughness
+    0.0508,                   !- Thickness
+    0.03,                     !- Conductivity
+    43,                       !- Density
+    1210,                     !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    G01a19mmgypsumboard,      !- Name
+    MediumSmooth,             !- Roughness
+    0.019,                    !- Thickness
+    0.16,                     !- Conductivity
+    800,                      !- Density
+    1090,                     !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    M11100mmlightweightconcrete,    !- Name
+    MediumRough,              !- Roughness
+    0.1016,                   !- Thickness
+    0.53,                     !- Conductivity
+    1280,                     !- Density
+    840,                      !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    F16Acoustictile,          !- Name
+    MediumSmooth,             !- Roughness
+    0.0191,                   !- Thickness
+    0.06,                     !- Conductivity
+    368,                      !- Density
+    590,                      !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    M01100mmbrick,            !- Name
+    MediumRough,              !- Roughness
+    0.1016,                   !- Thickness
+    0.89,                     !- Conductivity
+    1920,                     !- Density
+    790,                      !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    M15200mmheavyweightconcrete,    !- Name
+    MediumRough,              !- Roughness
+    0.2032,                   !- Thickness
+    1.95,                     !- Conductivity
+    2240,                     !- Density
+    900,                      !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    M05200mmconcreteblock,    !- Name
+    MediumRough,              !- Roughness
+    0.2032,                   !- Thickness
+    1.11,                     !- Conductivity
+    800,                      !- Density
+    920,                      !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    G0525mmwood,              !- Name
+    MediumSmooth,             !- Roughness
+    0.0254,                   !- Thickness
+    0.15,                     !- Conductivity
+    608,                      !- Density
+    1630,                     !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    IsolaLR-5cm,              !- Name
+    Rough,                    !- Roughness
+    0.05,                     !- Thickness
+    0.045,                    !- Conductivity
+    35,                       !- Density
+    840,                      !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    IsolaLR-6cm,              !- Name
+    Rough,                    !- Roughness
+    0.06,                     !- Thickness
+    0.045,                    !- Conductivity
+    35,                       !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolaLR-8cm,              !- Name
+    Rough,                    !- Roughness
+    0.08,                     !- Thickness
+    0.045,                    !- Conductivity
+    35,                       !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolaLR-10cm,             !- Name
+    Rough,                    !- Roughness
+    0.1,                      !- Thickness
+    0.045,                    !- Conductivity
+    35,                       !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Reboco-0.3cm,             !- Name
+    MediumRough,              !- Roughness
+    0.003,                    !- Thickness
+    1.8,                      !- Conductivity
+    2000,                     !- Density
+    1050,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Reboco-1cm,               !- Name
+    MediumRough,              !- Roughness
+    0.01,                     !- Thickness
+    1.8,                      !- Conductivity
+    2000,                     !- Density
+    1050,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Reboco-1.5cm,             !- Name
+    MediumRough,              !- Roughness
+    0.015,                    !- Thickness
+    1.8,                      !- Conductivity
+    2000,                     !- Density
+    1050,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Reboco-2cm,               !- Name
+    MediumRough,              !- Roughness
+    0.02,                     !- Thickness
+    1.8,                      !- Conductivity
+    2000,                     !- Density
+    1050,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Reboco-2.5cm,             !- Name
+    MediumRough,              !- Roughness
+    0.025,                    !- Thickness
+    1.8,                      !- Conductivity
+    2000,                     !- Density
+    1050,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betao-5cm,                !- Name
+    Smooth,                   !- Roughness
+    0.05,                     !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betao-7cm,                !- Name
+    Smooth,                   !- Roughness
+    0.07,                     !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betao-10cm,               !- Name
+    Smooth,                   !- Roughness
+    0.1,                      !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    1,                        !- Solar Absorptance
+    1;                        !- Visible Absorptance
+
+Material,
+    Betao-15cm,               !- Name
+    Smooth,                   !- Roughness
+    0.15,                     !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betao-20cm,               !- Name
+    Smooth,                   !- Roughness
+    0.2,                      !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betao-25cm,               !- Name
+    Smooth,                   !- Roughness
+    0.25,                     !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betao-30cm,               !- Name
+    Smooth,                   !- Roughness
+    0.3,                      !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betao-35cm,               !- Name
+    Smooth,                   !- Roughness
+    0.35,                     !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betao-40cm,               !- Name
+    Smooth,                   !- Roughness
+    0.4,                      !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betao-46cm,               !- Name
+    Smooth,                   !- Roughness
+    0.46,                     !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betonilha3cm,             !- Name
+    Rough,                    !- Roughness
+    0.03,                     !- Thickness
+    1.13,                     !- Conductivity
+    2000,                     !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.6,                      !- Solar Absorptance
+    0.6;                      !- Visible Absorptance
+
+Material,
+    Betonilha-10cm,           !- Name
+    Smooth,                   !- Roughness
+    0.1,                      !- Thickness
+    1.65,                     !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betonilha12cm,            !- Name
+    Rough,                    !- Roughness
+    0.12,                     !- Thickness
+    1.13,                     !- Conductivity
+    2000,                     !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.6,                      !- Solar Absorptance
+    0.6;                      !- Visible Absorptance
+
+Material,
+    Betonilha-17cm,           !- Name
+    Smooth,                   !- Roughness
+    0.17,                     !- Thickness
+    1.65,                     !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betonilha-20cm,           !- Name
+    Rough,                    !- Roughness
+    0.2,                      !- Thickness
+    1.65,                     !- Conductivity
+    2000,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Lajetadebetao3.5cm,       !- Name
+    Rough,                    !- Roughness
+    0.035,                    !- Thickness
+    1.13,                     !- Conductivity
+    2000,                     !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Ceramicavidrada-1cm,      !- Name
+    VerySmooth,               !- Roughness
+    0.01,                     !- Thickness
+    1.3,                      !- Conductivity
+    2300,                     !- Density
+    950,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    ChapaMetalica-2mm,        !- Name
+    Smooth,                   !- Roughness
+    0.002,                    !- Thickness
+    50,                       !- Conductivity
+    7800,                     !- Density
+    450,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Telaimpermeabilizacao-2mm,    !- Name
+    Smooth,                   !- Roughness
+    0.002,                    !- Thickness
+    0.14,                     !- Conductivity
+    1200,                     !- Density
+    1040,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    acrilico-4mm,             !- Name
+    VerySmooth,               !- Roughness
+    0.04,                     !- Thickness
+    0.2,                      !- Conductivity
+    1200,                     !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoXPS-3cm,        !- Name
+    MediumSmooth,             !- Roughness
+    0.03,                     !- Thickness
+    0.037,                    !- Conductivity
+    30,                       !- Density
+    1550,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoXPS-4cm,        !- Name
+    MediumSmooth,             !- Roughness
+    0.04,                     !- Thickness
+    0.037,                    !- Conductivity
+    30,                       !- Density
+    1550,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoXPS-5cm,        !- Name
+    MediumSmooth,             !- Roughness
+    0.05,                     !- Thickness
+    0.037,                    !- Conductivity
+    30,                       !- Density
+    1550,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoXPS-6cm,        !- Name
+    MediumSmooth,             !- Roughness
+    0.06,                     !- Thickness
+    0.037,                    !- Conductivity
+    30,                       !- Density
+    1550,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoXPS-8cm,        !- Name
+    MediumSmooth,             !- Roughness
+    0.08,                     !- Thickness
+    0.037,                    !- Conductivity
+    30,                       !- Density
+    1550,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoXPS-10cm,       !- Name
+    MediumSmooth,             !- Roughness
+    0.1,                      !- Thickness
+    0.037,                    !- Conductivity
+    30,                       !- Density
+    1550,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    OSB-1cm,                  !- Name
+    Smooth,                   !- Roughness
+    0.01,                     !- Thickness
+    0.13,                     !- Conductivity
+    650,                      !- Density
+    1250,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    OSB-2cm,                  !- Name
+    Smooth,                   !- Roughness
+    0.02,                     !- Thickness
+    0.13,                     !- Conductivity
+    650,                      !- Density
+    1250,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    OSB-2.5cm,                !- Name
+    Smooth,                   !- Roughness
+    0.025,                    !- Thickness
+    0.13,                     !- Conductivity
+    650,                      !- Density
+    1250,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Gessocartonado-10mm,      !- Name
+    Smooth,                   !- Roughness
+    0.01,                     !- Thickness
+    0.25,                     !- Conductivity
+    750,                      !- Density
+    1090,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Gessocartonado-12mm,      !- Name
+    Smooth,                   !- Roughness
+    0.012,                    !- Thickness
+    0.25,                     !- Conductivity
+    750,                      !- Density
+    1090,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Gessocartonado-15mm,      !- Name
+    Smooth,                   !- Roughness
+    0.015,                    !- Thickness
+    0.25,                     !- Conductivity
+    750,                      !- Density
+    1090,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Gessocartonado-20mm,      !- Name
+    Smooth,                   !- Roughness
+    0.02,                     !- Thickness
+    0.25,                     !- Conductivity
+    750,                      !- Density
+    1090,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Gessocartonado-30mm,      !- Name
+    Smooth,                   !- Roughness
+    0.02,                     !- Thickness
+    0.25,                     !- Conductivity
+    750,                      !- Density
+    1090,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoEPS-1cm,        !- Name
+    Smooth,                   !- Roughness
+    0.01,                     !- Thickness
+    0.042,                    !- Conductivity
+    15,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoEPS-2cm,        !- Name
+    Smooth,                   !- Roughness
+    0.02,                     !- Thickness
+    0.042,                    !- Conductivity
+    15,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoEPS-3cm,        !- Name
+    Smooth,                   !- Roughness
+    0.03,                     !- Thickness
+    0.042,                    !- Conductivity
+    15,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoEPS-4cm,        !- Name
+    Smooth,                   !- Roughness
+    0.04,                     !- Thickness
+    0.042,                    !- Conductivity
+    15,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoEPS-5cm,        !- Name
+    Smooth,                   !- Roughness
+    0.05,                     !- Thickness
+    0.042,                    !- Conductivity
+    15,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoEPS-6cm,        !- Name
+    Smooth,                   !- Roughness
+    0.06,                     !- Thickness
+    0.042,                    !- Conductivity
+    15,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoEPS-8cm,        !- Name
+    Smooth,                   !- Roughness
+    0.08,                     !- Thickness
+    0.042,                    !- Conductivity
+    15,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoEPS-10cm,       !- Name
+    Smooth,                   !- Roughness
+    0.1,                      !- Thickness
+    0.042,                    !- Conductivity
+    15,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    AlvTijolofurado-9cm,      !- Name
+    MediumRough,              !- Roughness
+    0.09,                     !- Thickness
+    0.39,                     !- Conductivity
+    1200,                     !- Density
+    920,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    AlvTijolofurado-10/11cm,    !- Name
+    MediumRough,              !- Roughness
+    0.11,                     !- Thickness
+    0.39,                     !- Conductivity
+    1200,                     !- Density
+    920,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    AlvTijolofurado-15cm,     !- Name
+    MediumRough,              !- Roughness
+    0.15,                     !- Thickness
+    0.39,                     !- Conductivity
+    1200,                     !- Density
+    920,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    AlvTijolofurado-19/22cm,    !- Name
+    MediumRough,              !- Roughness
+    0.2,                      !- Thickness
+    0.39,                     !- Conductivity
+    1200,                     !- Density
+    920,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    AlvTijolofurado-24/25cm,    !- Name
+    MediumRough,              !- Roughness
+    0.25,                     !- Thickness
+    0.39,                     !- Conductivity
+    1200,                     !- Density
+    920,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    AlvBlocoBetao-10/11cm,    !- Name
+    MediumRough,              !- Roughness
+    0.11,                     !- Thickness
+    0.75,                     !- Conductivity
+    1280,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    AlvBlocoBetao-15cm,       !- Name
+    MediumRough,              !- Roughness
+    0.15,                     !- Thickness
+    0.75,                     !- Conductivity
+    1280,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    AlvBlocoBetao-19/22cm,    !- Name
+    MediumRough,              !- Roughness
+    0.2,                      !- Thickness
+    0.75,                     !- Conductivity
+    1280,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    AlvBlocoBetao-24/25cm,    !- Name
+    MediumRough,              !- Roughness
+    0.25,                     !- Thickness
+    0.75,                     !- Conductivity
+    1280,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    AlvBlocoBetao-30cm,       !- Name
+    MediumRough,              !- Roughness
+    0.3,                      !- Thickness
+    0.75,                     !- Conductivity
+    1280,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    BlocoBagacina-15cm,       !- Name
+    MediumRough,              !- Roughness
+    0.15,                     !- Thickness
+    0.55,                     !- Conductivity
+    1550,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    BlocoBagacina-20cm,       !- Name
+    MediumRough,              !- Roughness
+    0.2,                      !- Thickness
+    0.55,                     !- Conductivity
+    1550,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    BlocoBagacina-25cm,       !- Name
+    MediumRough,              !- Roughness
+    0.25,                     !- Thickness
+    0.55,                     !- Conductivity
+    1550,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    BlocoBagacina-30cm,       !- Name
+    MediumRough,              !- Roughness
+    0.3,                      !- Thickness
+    0.55,                     !- Conductivity
+    1550,                     !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    CelenitN3cm,              !- Name
+    Rough,                    !- Roughness
+    0.03,                     !- Thickness
+    0.07,                     !- Conductivity
+    430,                      !- Density
+    2100,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    CelenitN4cm,              !- Name
+    Rough,                    !- Roughness
+    0.04,                     !- Thickness
+    0.07,                     !- Conductivity
+    430,                      !- Density
+    2100,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    CelenitN5cm,              !- Name
+    Rough,                    !- Roughness
+    0.05,                     !- Thickness
+    0.07,                     !- Conductivity
+    430,                      !- Density
+    2100,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Madeirasoalho1cm,         !- Name
+    Rough,                    !- Roughness
+    0.01,                     !- Thickness
+    0.14,                     !- Conductivity
+    650,                      !- Density
+    1200,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.78,                     !- Solar Absorptance
+    0.78;                     !- Visible Absorptance
+
+Material,
+    IsolaLR-4cm,              !- Name
+    Rough,                    !- Roughness
+    0.04,                     !- Thickness
+    0.045,                    !- Conductivity
+    35,                       !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    AlvTijolofurado-7cm,      !- Name
+    MediumRough,              !- Roughness
+    0.07,                     !- Thickness
+    0.39,                     !- Conductivity
+    1200,                     !- Density
+    920,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Painelmadeira-tola16mm,    !- Name
+    MediumRough,              !- Roughness
+    0.016,                    !- Thickness
+    0.18,                     !- Conductivity
+    565,                      !- Density
+    1200,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    LajetatermicaEPS-5cm,     !- Name
+    Smooth,                   !- Roughness
+    0.05,                     !- Thickness
+    0.04,                     !- Conductivity
+    25,                       !- Density
+    1500,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Pavimentomoular-PVC,      !- Name
+    Smooth,                   !- Roughness
+    0.05,                     !- Thickness
+    0.17,                     !- Conductivity
+    1390,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Pedra2cm,                 !- Name
+    MediumRough,              !- Roughness
+    0.02,                     !- Thickness
+    1.1,                      !- Conductivity
+    1600,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Fenolico8mm,              !- Name
+    VeryRough,                !- Roughness
+    0.008,                    !- Thickness
+    0.23,                     !- Conductivity
+    610,                      !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Laminadomadeira,          !- Name
+    MediumSmooth,             !- Roughness
+    0.015,                    !- Thickness
+    0.1,                      !- Conductivity
+    2400,                     !- Density
+    1630,                     !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    Aluminio-15mm,            !- Name
+    Rough,                    !- Roughness
+    0.0015,                   !- Thickness
+    230,                      !- Conductivity
+    2700,                     !- Density
+    450,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Pedraaparelhada,          !- Name
+    MediumRough,              !- Roughness
+    0.55,                     !- Thickness
+    0.23,                     !- Conductivity
+    2000,                     !- Density
+    900,                      !- Specific Heat
+    0.9;                      !- Thermal Absorptance
+
+Material,
+    IsolaPUR-3cm,             !- Name
+    Rough,                    !- Roughness
+    0.03,                     !- Thickness
+    0.042,                    !- Conductivity
+    20,                       !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Godo,                     !- Name
+    MediumRough,              !- Roughness
+    0.1,                      !- Thickness
+    2,                        !- Conductivity
+    1700,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Bentonite3cm,             !- Name
+    Smooth,                   !- Roughness
+    0.03,                     !- Thickness
+    0.85,                     !- Conductivity
+    1400,                     !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolaLR-12cm,             !- Name
+    Rough,                    !- Roughness
+    0.12,                     !- Thickness
+    0.045,                    !- Conductivity
+    35,                       !- Density
+    840,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Tijolotermico10cm,        !- Name
+    MediumRough,              !- Roughness
+    0.14,                     !- Thickness
+    0.79,                     !- Conductivity
+    935,                      !- Density
+    920,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Estuqueprojectado2cm,     !- Name
+    MediumRough,              !- Roughness
+    0.02,                     !- Thickness
+    0.3,                      !- Conductivity
+    600,                      !- Density
+    920,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Impactodan-1cm,           !- Name
+    MediumRough,              !- Roughness
+    0.01,                     !- Thickness
+    0.04,                     !- Conductivity
+    25,                       !- Density
+    920,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betao-2cm,                !- Name
+    Smooth,                   !- Roughness
+    0.02,                     !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betao-55cm,               !- Name
+    Smooth,                   !- Roughness
+    0.55,                     !- Thickness
+    2.2,                      !- Conductivity
+    2300,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Betonilha-25cm,           !- Name
+    Rough,                    !- Roughness
+    0.25,                     !- Thickness
+    1.65,                     !- Conductivity
+    2000,                     !- Density
+    900,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Madeirasoalho3cm,         !- Name
+    Rough,                    !- Roughness
+    0.03,                     !- Thickness
+    0.14,                     !- Conductivity
+    650,                      !- Density
+    1200,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.78,                     !- Solar Absorptance
+    0.78;                     !- Visible Absorptance
+
+Material,
+    Madeiradensa4cm,          !- Name
+    Rough,                    !- Roughness
+    0.04,                     !- Thickness
+    0.23,                     !- Conductivity
+    870,                      !- Density
+    1200,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.78,                     !- Solar Absorptance
+    0.78;                     !- Visible Absorptance
+
+Material,
+    Reboco-0.5cm,             !- Name
+    MediumRough,              !- Roughness
+    0.005,                    !- Thickness
+    1.8,                      !- Conductivity
+    2000,                     !- Density
+    1050,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    IsolamentoXPS-2cm,        !- Name
+    MediumSmooth,             !- Roughness
+    0.02,                     !- Thickness
+    0.037,                    !- Conductivity
+    30,                       !- Density
+    1550,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    TijoloTermico_19,         !- Name
+    Rough,                    !- Roughness
+    0.19,                     !- Thickness
+    0.21,                     !- Conductivity
+    907,                      !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    TijoloFurado_7,           !- Name
+    Rough,                    !- Roughness
+    0.07,                     !- Thickness
+    0.37,                     !- Conductivity
+    818,                      !- Density
+    790,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    TijoloFurado_9,           !- Name
+    Rough,                    !- Roughness
+    0.09,                     !- Thickness
+    0.39,                     !- Conductivity
+    746,                      !- Density
+    790,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    TijoloFurado_11,          !- Name
+    Rough,                    !- Roughness
+    0.11,                     !- Thickness
+    0.41,                     !- Conductivity
+    630,                      !- Density
+    790,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    TijoloFurado_15,          !- Name
+    Rough,                    !- Roughness
+    0.15,                     !- Thickness
+    0.38,                     !- Conductivity
+    620,                      !- Density
+    790,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    TijoloFurado_20,          !- Name
+    Rough,                    !- Roughness
+    0.2,                      !- Thickness
+    0.38,                     !- Conductivity
+    633,                      !- Density
+    790,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    TijoloFurado_22,          !- Name
+    Rough,                    !- Roughness
+    0.22,                     !- Thickness
+    0.42,                     !- Conductivity
+    633,                      !- Density
+    790,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Arg_Cimento_Clara_3,      !- Name
+    MediumSmooth,             !- Roughness
+    0.03,                     !- Thickness
+    1.3,                      !- Conductivity
+    1900,                     !- Density
+    1046,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.4;                      !- Visible Absorptance
+
+Material,
+    Arg_Cimento_Escura_3,     !- Name
+    MediumSmooth,             !- Roughness
+    0.03,                     !- Thickness
+    1.3,                      !- Conductivity
+    1900,                     !- Density
+    1046,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Arg_Cimento_Clara_2.5,    !- Name
+    MediumSmooth,             !- Roughness
+    0.025,                    !- Thickness
+    1.3,                      !- Conductivity
+    1900,                     !- Density
+    1046,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.4;                      !- Visible Absorptance
+
+Material,
+    Arg_Cimento_Escura_2.5,    !- Name
+    MediumSmooth,             !- Roughness
+    0.025,                    !- Thickness
+    1.3,                      !- Conductivity
+    1900,                     !- Density
+    1046,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Arg_Cimento_Clara_1.5,    !- Name
+    MediumSmooth,             !- Roughness
+    0.015,                    !- Thickness
+    1.3,                      !- Conductivity
+    1900,                     !- Density
+    1046,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.4;                      !- Visible Absorptance
+
+Material,
+    Arg_Cimento_Escura_1.5,    !- Name
+    MediumSmooth,             !- Roughness
+    0.015,                    !- Thickness
+    1.3,                      !- Conductivity
+    1900,                     !- Density
+    1046,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Arg_Cal_Clara_2,          !- Name
+    MediumSmooth,             !- Roughness
+    0.02,                     !- Thickness
+    1.3,                      !- Conductivity
+    1900,                     !- Density
+    1046,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.4;                      !- Visible Absorptance
+
+Material,
+    Arg_Cal_Escura_2,         !- Name
+    MediumSmooth,             !- Roughness
+    0.02,                     !- Thickness
+    1.3,                      !- Conductivity
+    1900,                     !- Density
+    1046,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    Estuque_Claro_3,          !- Name
+    Smooth,                   !- Roughness
+    0.03,                     !- Thickness
+    0.4,                      !- Conductivity
+    1000,                     !- Density
+    820,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.4;                      !- Visible Absorptance
+
+Material,
+    Estuque_Claro_2.5,        !- Name
+    Smooth,                   !- Roughness
+    0.025,                    !- Thickness
+    0.4,                      !- Conductivity
+    1000,                     !- Density
+    820,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.4;                      !- Visible Absorptance
+
+Material,
+    Estuque_Claro_2,          !- Name
+    Smooth,                   !- Roughness
+    0.02,                     !- Thickness
+    0.4,                      !- Conductivity
+    1000,                     !- Density
+    820,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.4;                      !- Visible Absorptance
+
+Material,
+    Estuque_Claro_1.5,        !- Name
+    Smooth,                   !- Roughness
+    0.015,                    !- Thickness
+    0.4,                      !- Conductivity
+    1000,                     !- Density
+    820,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.4;                      !- Visible Absorptance
+
+Material,
+    XPS_4,                    !- Name
+    MediumRough,              !- Roughness
+    0.04,                     !- Thickness
+    0.037,                    !- Conductivity
+    15,                       !- Density
+    1200,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.4;                      !- Visible Absorptance
+
+Material,
+    XPS_2,                    !- Name
+    MediumRough,              !- Roughness
+    0.02,                     !- Thickness
+    0.037,                    !- Conductivity
+    15,                       !- Density
+    1200,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.4;                      !- Visible Absorptance
+
+Material,
+    Pedra,                    !- Name
+    MediumSmooth,             !- Roughness
+    0.41,                     !- Thickness
+    2.8,                      !- Conductivity
+    2600,                     !- Density
+    790,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    PaineldeRocha,            !- Name
+    MediumSmooth,             !- Roughness
+    0.02,                     !- Thickness
+    2.8,                      !- Conductivity
+    2600,                     !- Density
+    790,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.7,                      !- Solar Absorptance
+    0.7;                      !- Visible Absorptance
+
+Material,
+    LajeBetao_30,             !- Name
+    MediumSmooth,             !- Roughness
+    0.3,                      !- Thickness
+    2.5,                      !- Conductivity
+    2350,                     !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.78,                     !- Solar Absorptance
+    0.78;                     !- Visible Absorptance
+
+Material,
+    LajeBetao_15,             !- Name
+    MediumSmooth,             !- Roughness
+    0.15,                     !- Thickness
+    2.5,                      !- Conductivity
+    2350,                     !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.78,                     !- Solar Absorptance
+    0.78;                     !- Visible Absorptance
+
+Material,
+    LajeAligeirada_0.20,      !- Name
+    MediumSmooth,             !- Roughness
+    0.2,                      !- Thickness
+    0.85,                     !- Conductivity
+    1000,                     !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.78,                     !- Solar Absorptance
+    0.78;                     !- Visible Absorptance
+
+Material,
+    LajeAligeirada_0.25,      !- Name
+    MediumSmooth,             !- Roughness
+    0.25,                     !- Thickness
+    1.54,                     !- Conductivity
+    1000,                     !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.78,                     !- Solar Absorptance
+    0.78;                     !- Visible Absorptance
+
+Material,
+    BetonilhadeAcentamento_8,    !- Name
+    MediumSmooth,             !- Roughness
+    0.08,                     !- Thickness
+    1.3,                      !- Conductivity
+    700,                      !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.78,                     !- Solar Absorptance
+    0.78;                     !- Visible Absorptance
+
+Material,
+    BetonilhadeAcentamento_5,    !- Name
+    MediumSmooth,             !- Roughness
+    0.05,                     !- Thickness
+    1.3,                      !- Conductivity
+    700,                      !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.78,                     !- Solar Absorptance
+    0.78;                     !- Visible Absorptance
+
+Material,
+    ChaoFlutuante,            !- Name
+    Smooth,                   !- Roughness
+    0.015,                    !- Thickness
+    1.3,                      !- Conductivity
+    2300,                     !- Density
+    1000,                     !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.4;                      !- Visible Absorptance
+
+Material,
+    PaineisdeMadeira_12,      !- Name
+    MediumSmooth,             !- Roughness
+    0.12,                     !- Thickness
+    0.34,                     !- Conductivity
+    900,                      !- Density
+    820,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.2;                      !- Visible Absorptance
+
+Material,
+    PaineisdeMadeira_3,       !- Name
+    MediumSmooth,             !- Roughness
+    0.03,                     !- Thickness
+    0.34,                     !- Conductivity
+    900,                      !- Density
+    820,                      !- Specific Heat
+    0.9,                      !- Thermal Absorptance
+    0.4,                      !- Solar Absorptance
+    0.2;                      !- Visible Absorptance
+
+Material:AirGap,
+    F04 Wall air space resistance,    !- Name
+    0.15;                     !- Thermal Resistance
+
+Material:AirGap,
+    F05 Ceiling air space resistance,    !- Name
+    0.18;                     !- Thermal Resistance
+
+Material:AirGap,
+    F04Wallairspaceresistance,    !- Name
+    0.15;                     !- Thermal Resistance
+
+Material:AirGap,
+    F05Ceilingairspaceresistance,    !- Name
+    0.18;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArHorizontal-10mm,        !- Name
+    0.15;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArHorizontal-15mm,        !- Name
+    0.17;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArHorizontal-25mma100mm,    !- Name
+    0.18;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArVerticalUp-5mm,         !- Name
+    0.11;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArVerticalUp-10mm,        !- Name
+    0.15;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArVerticalUp-15/100mm,    !- Name
+    0.16;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArVerticalDown-5mm,       !- Name
+    0.11;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArVerticalDown-10mm,      !- Name
+    0.15;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArVerticalDown-15mm,      !- Name
+    0.17;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArVerticalDown-25mm,      !- Name
+    0.19;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArVerticalDown-50mm,      !- Name
+    0.21;                     !- Thermal Resistance
+
+Material:AirGap,
+    ArVerticalDown-100mm,     !- Name
+    0.22;                     !- Thermal Resistance
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    window_0,                 !- Name
+    2.69,                     !- UFactor
+    0.75,                     !- Solar Heat Gain Coefficient
+    0.8;                      !- Visible Transmittance
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    window_1,                 !- Name
+    1.7,                      !- UFactor
+    0.38,                     !- Solar Heat Gain Coefficient
+    0.7;                      !- Visible Transmittance
+
+WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM,
+    window_2,                 !- Name
+    1.25,                     !- UFactor
+    0.2,                      !- Solar Heat Gain Coefficient
+    0.7;                      !- Visible Transmittance
+
+WindowMaterial:Glazing,
+    Clear 3mm,                !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.003,                    !- Thickness
+    0.837,                    !- Solar Transmittance at Normal Incidence
+    0.075,                    !- Front Side Solar Reflectance at Normal Incidence
+    0.075,                    !- Back Side Solar Reflectance at Normal Incidence
+    0.898,                    !- Visible Transmittance at Normal Incidence
+    0.081,                    !- Front Side Visible Reflectance at Normal Incidence
+    0.081,                    !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    VidroClaro3MM,            !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.003,                    !- Thickness
+    0.85,                     !- Solar Transmittance at Normal Incidence
+    0.08,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.08,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.9,                      !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    VidroClaro4MM,            !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.004,                    !- Thickness
+    0.83,                     !- Solar Transmittance at Normal Incidence
+    0.07,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.07,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.9,                      !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    VidroClaro5MM,            !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.005,                    !- Thickness
+    0.81,                     !- Solar Transmittance at Normal Incidence
+    0.07,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.07,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.89,                     !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    VidroClaro6MM,            !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.006,                    !- Thickness
+    0.79,                     !- Solar Transmittance at Normal Incidence
+    0.07,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.07,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.89,                     !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    VidroClaro8MM,            !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.008,                    !- Thickness
+    0.75,                     !- Solar Transmittance at Normal Incidence
+    0.07,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.07,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.87,                     !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    VidroClaro10MM,           !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.1,                      !- Thickness
+    0.76,                     !- Solar Transmittance at Normal Incidence
+    0.07,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.07,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.88,                     !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    VidroClaro12MM,           !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.12,                     !- Thickness
+    0.72,                     !- Solar Transmittance at Normal Incidence
+    0.07,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.07,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.87,                     !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    VidroClaro15MM,           !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.15,                     !- Thickness
+    0.69,                     !- Solar Transmittance at Normal Incidence
+    0.07,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.07,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.86,                     !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    VidroClaroLaminado6+6,    !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.12,                     !- Thickness
+    0.65,                     !- Solar Transmittance at Normal Incidence
+    0.06,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.06,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.85,                     !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    VidroClaroLaminado8+8,    !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.16,                     !- Thickness
+    0.6,                      !- Solar Transmittance at Normal Incidence
+    0.06,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.06,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.83,                     !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    Clear3mm,                 !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.003,                    !- Thickness
+    0.837,                    !- Solar Transmittance at Normal Incidence
+    0.075,                    !- Front Side Solar Reflectance at Normal Incidence
+    0.075,                    !- Back Side Solar Reflectance at Normal Incidence
+    0.898,                    !- Visible Transmittance at Normal Incidence
+    0.081,                    !- Front Side Visible Reflectance at Normal Incidence
+    0.081,                    !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.9;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    duplo8(12)64.1tipo1verde,    !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.031,                    !- Thickness
+    0.3,                      !- Solar Transmittance at Normal Incidence
+    0.08,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.08,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.59,                     !- Visible Transmittance at Normal Incidence
+    0.13,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.13,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.07;                     !- Conductivity
+
+WindowMaterial:Glazing,
+    duplo8(12)64.1tipo2azul,    !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.031,                    !- Thickness
+    0.23,                     !- Solar Transmittance at Normal Incidence
+    0.07,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.07,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.37,                     !- Visible Transmittance at Normal Incidence
+    0.09,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.09,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.07;                     !- Conductivity
+
+WindowMaterial:Glazing,
+    duplo8(12)33.1tipo3Bronze,    !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.031,                    !- Thickness
+    0.26,                     !- Solar Transmittance at Normal Incidence
+    0.07,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.07,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.36,                     !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.07;                     !- Conductivity
+
+WindowMaterial:Glazing,
+    duplo8(12)33.1tipo4,      !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.027,                    !- Thickness
+    0.78,                     !- Solar Transmittance at Normal Incidence
+    0.16,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.16,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.78,                     !- Visible Transmittance at Normal Incidence
+    0.16,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.16,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.14;                     !- Conductivity
+
+WindowMaterial:Glazing,
+    duplo8(12)33.1tipo5,      !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.031,                    !- Thickness
+    0.27,                     !- Solar Transmittance at Normal Incidence
+    0.08,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.08,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.35,                     !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.07;                     !- Conductivity
+
+WindowMaterial:Glazing,
+    duplo8(12)44.1tipo6,      !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.029,                    !- Thickness
+    0.28,                     !- Solar Transmittance at Normal Incidence
+    0.31,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.31,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.46,                     !- Visible Transmittance at Normal Incidence
+    0.24,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.24,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.06;                     !- Conductivity
+
+WindowMaterial:Glazing,
+    duplo8(12)33.1tipo7GRIS,    !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.027,                    !- Thickness
+    0.22,                     !- Solar Transmittance at Normal Incidence
+    0.29,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.29,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.34,                     !- Visible Transmittance at Normal Incidence
+    0.19,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.19,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.06;                     !- Conductivity
+
+WindowMaterial:Glazing,
+    44.1,                     !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.009,                    !- Thickness
+    0.88,                     !- Solar Transmittance at Normal Incidence
+    0.07,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.07,                     !- Back Side Solar Reflectance at Normal Incidence
+    0.88,                     !- Visible Transmittance at Normal Incidence
+    0.08,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.08,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    1.7;                      !- Conductivity
+
+WindowMaterial:Glazing,
+    8(8)44.1,                 !- Name
+    SpectralAverage,          !- Optical Data Type
+    ,                         !- Window Glass Spectral Data Set Name
+    0.025,                    !- Thickness
+    0.4,                      !- Solar Transmittance at Normal Incidence
+    0.38,                     !- Front Side Solar Reflectance at Normal Incidence
+    0.3,                      !- Back Side Solar Reflectance at Normal Incidence
+    0.7,                      !- Visible Transmittance at Normal Incidence
+    0.23,                     !- Front Side Visible Reflectance at Normal Incidence
+    0.21,                     !- Back Side Visible Reflectance at Normal Incidence
+    0,                        !- Infrared Transmittance at Normal Incidence
+    0.84,                     !- Front Side Infrared Hemispherical Emissivity
+    0.84,                     !- Back Side Infrared Hemispherical Emissivity
+    0.054;                    !- Conductivity
+
+WindowMaterial:Gas,
+    Air 13mm,                 !- Name
+    Air,                      !- Gas Type
+    0.0127;                   !- Thickness
+
+WindowMaterial:Gas,
+    Air13mm,                  !- Name
+    Air,                      !- Gas Type
+    0.0127;                   !- Thickness
+
+WindowMaterial:Gas,
+    CaixaAr-6mm,              !- Name
+    Air,                      !- Gas Type
+    0.006;                    !- Thickness
+
+WindowMaterial:Gas,
+    CaixaAr-8mm,              !- Name
+    Air,                      !- Gas Type
+    0.008;                    !- Thickness
+
+WindowMaterial:Gas,
+    CaixaAr-10mm,             !- Name
+    Air,                      !- Gas Type
+    0.01;                     !- Thickness
+
+WindowMaterial:Gas,
+    CaixaAr-12mm,             !- Name
+    Air,                      !- Gas Type
+    0.012;                    !- Thickness
+
+WindowMaterial:Gas,
+    CaixaAr-14mm,             !- Name
+    Air,                      !- Gas Type
+    0.014;                    !- Thickness
+
+WindowMaterial:Gas,
+    CaixaAr-15mm,             !- Name
+    Air,                      !- Gas Type
+    0.015;                    !- Thickness
+
+Construction,
+    Exterior Floor,           !- Name
+    I02 50mm insulation board,    !- Outside Layer
+    M15 200mm heavyweight concrete;    !- Layer 2
+
+Construction,
+    Interior Floor,           !- Name
+    F16 Acoustic tile,        !- Outside Layer
+    F05 Ceiling air space resistance,    !- Layer 2
+    M11 100mm lightweight concrete;    !- Layer 3
+
+Construction,
+    Exterior Wall,            !- Name
+    M01 100mm brick,          !- Outside Layer
+    M15 200mm heavyweight concrete,    !- Layer 2
+    I02 50mm insulation board,    !- Layer 3
+    F04 Wall air space resistance,    !- Layer 4
+    G01a 19mm gypsum board;    !- Layer 5
+
+Construction,
+    Interior Wall,            !- Name
+    G01a 19mm gypsum board,    !- Outside Layer
+    F04 Wall air space resistance,    !- Layer 2
+    G01a 19mm gypsum board;    !- Layer 3
+
+Construction,
+    Exterior Roof,            !- Name
+    M11 100mm lightweight concrete,    !- Outside Layer
+    F05 Ceiling air space resistance,    !- Layer 2
+    F16 Acoustic tile;        !- Layer 3
+
+Construction,
+    Interior Ceiling,         !- Name
+    M11 100mm lightweight concrete,    !- Outside Layer
+    F05 Ceiling air space resistance,    !- Layer 2
+    F16 Acoustic tile;        !- Layer 3
+
+Construction,
+    Exterior Window,          !- Name
+    Clear 3mm,                !- Outside Layer
+    Air 13mm,                 !- Layer 2
+    Clear 3mm;                !- Layer 3
+
+Construction,
+    Interior Window,          !- Name
+    Clear 3mm;                !- Outside Layer
+
+Construction,
+    Exterior Door,            !- Name
+    F08 Metal surface,        !- Outside Layer
+    I01 25mm insulation board;    !- Layer 2
+
+Construction,
+    Interior Door,            !- Name
+    G05 25mm wood;            !- Outside Layer
+
+CONSTRUCTION,
+    window_0,                 !- Name
+    window_0;                 !- Outside Layer
+
+CONSTRUCTION,
+    window_1,                 !- Name
+    window_1;                 !- Outside Layer
+
+CONSTRUCTION,
+    window_2,                 !- Name
+    window_2;                 !- Outside Layer
+
+CONSTRUCTION,
+    EXT_WALL0,                !- Name
+    Reboco-2cm,               !- Outside Layer
+    TijoloFurado_15,          !- Layer 2
+    AirGap,                   !- Layer 3
+    TijoloFurado_11,          !- Layer 4
+    Estuque_Claro_1.5;        !- Layer 5
+
+CONSTRUCTION,
+    EXT_WALL1,                !- Name
+    Reboco-2cm,               !- Outside Layer
+    TijoloFurado_11,          !- Layer 2
+    AirGap,                   !- Layer 3
+    TijoloFurado_11,          !- Layer 4
+    Estuque_Claro_1.5;        !- Layer 5
+
+CONSTRUCTION,
+    EXT_WALL2,                !- Name
+    Reboco-2cm,               !- Outside Layer
+    TijoloFurado_15,          !- Layer 2
+    AirGap,                   !- Layer 3
+    IsolamentoXPS-4cm,        !- Layer 4
+    TijoloFurado_11,          !- Layer 5
+    Estuque_Claro_1.5;        !- Layer 6
+
+CONSTRUCTION,
+    floor_0,                  !- Name
+    PaineisdeMadeira_12,      !- Outside Layer
+    Estuque_Claro_1.5;        !- Layer 2
+
+CONSTRUCTION,
+    floor_1,                  !- Name
+    Ceramicavidrada-1cm,      !- Outside Layer
+    BetonilhadeAcentamento_8,    !- Layer 2
+    LajeBetao_15,             !- Layer 3
+    Estuque_Claro_1.5;        !- Layer 4
+
+CONSTRUCTION,
+    floor_2,                  !- Name
+    Ceramicavidrada-1cm,      !- Outside Layer
+    BetonilhadeAcentamento_8,    !- Layer 2
+    LajeAligeirada_0.25,      !- Layer 3
+    Estuque_Claro_1.5;        !- Layer 4
+
+GlobalGeometryRules,
+    UpperLeftCorner,          !- Starting Vertex Position
+    Counterclockwise,         !- Vertex Entry Direction
+    Relative;                 !- Coordinate System
+
+Zone,
+    9467A6,                   !- Name
+    0,                        !- Direction of Relative North
+    0,                        !- X Origin
+    0,                        !- Y Origin
+    0,                        !- Z Origin
+    ,                         !- Type
+    1;                        !- Multiplier
+
+BuildingSurface:Detailed,
+    685B03,                   !- Name
+    Floor,                    !- Surface Type
+    floor_0,                  !- Construction Name
+    9467A6,                   !- Zone Name
+    Ground,                   !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    NoSun,                    !- Sun Exposure
+    NoWind,                   !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    10,                       !- Vertex 1 Xcoordinate
+    10,                       !- Vertex 1 Ycoordinate
+    0,                        !- Vertex 1 Zcoordinate
+    10,                       !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    10,                       !- Vertex 4 Ycoordinate
+    0;                        !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    A236D1,                   !- Name
+    Roof,                     !- Surface Type
+    Exterior Roof,            !- Construction Name
+    9467A6,                   !- Zone Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    0,                        !- Vertex 1 Xcoordinate
+    10,                       !- Vertex 1 Ycoordinate
+    4,                        !- Vertex 1 Zcoordinate
+    0,                        !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    4,                        !- Vertex 2 Zcoordinate
+    10,                       !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    4,                        !- Vertex 3 Zcoordinate
+    10,                       !- Vertex 4 Xcoordinate
+    10,                       !- Vertex 4 Ycoordinate
+    4;                        !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    6F11CD,                   !- Name
+    Wall,                     !- Surface Type
+    EXT_WALL1,                !- Construction Name
+    9467A6,                   !- Zone Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    10,                       !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    4,                        !- Vertex 1 Zcoordinate
+    10,                       !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    10,                       !- Vertex 3 Xcoordinate
+    10,                       !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    10,                       !- Vertex 4 Xcoordinate
+    10,                       !- Vertex 4 Ycoordinate
+    4;                        !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    DE6A22,                   !- Name
+    Wall,                     !- Surface Type
+    EXT_WALL0,                !- Construction Name
+    9467A6,                   !- Zone Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    0,                        !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    4,                        !- Vertex 1 Zcoordinate
+    0,                        !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    10,                       !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    10,                       !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    4;                        !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    3332BC,                   !- Name
+    Wall,                     !- Surface Type
+    EXT_WALL0,                !- Construction Name
+    9467A6,                   !- Zone Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    0,                        !- Vertex 1 Xcoordinate
+    10,                       !- Vertex 1 Ycoordinate
+    4,                        !- Vertex 1 Zcoordinate
+    0,                        !- Vertex 2 Xcoordinate
+    10,                       !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    4;                        !- Vertex 4 Zcoordinate
+
+BuildingSurface:Detailed,
+    8E6681,                   !- Name
+    Wall,                     !- Surface Type
+    EXT_WALL0,                !- Construction Name
+    9467A6,                   !- Zone Name
+    Outdoors,                 !- Outside Boundary Condition
+    ,                         !- Outside Boundary Condition Object
+    SunExposed,               !- Sun Exposure
+    WindExposed,              !- Wind Exposure
+    ,                         !- View Factor to Ground
+    4,                        !- Number of Vertices
+    10,                       !- Vertex 1 Xcoordinate
+    10,                       !- Vertex 1 Ycoordinate
+    4,                        !- Vertex 1 Zcoordinate
+    10,                       !- Vertex 2 Xcoordinate
+    10,                       !- Vertex 2 Ycoordinate
+    0,                        !- Vertex 2 Zcoordinate
+    0,                        !- Vertex 3 Xcoordinate
+    10,                       !- Vertex 3 Ycoordinate
+    0,                        !- Vertex 3 Zcoordinate
+    0,                        !- Vertex 4 Xcoordinate
+    10,                       !- Vertex 4 Ycoordinate
+    4;                        !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    169BE2,                   !- Name
+    Window,                   !- Surface Type
+    window_0,                 !- Construction Name
+    DE6A22,                   !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    6.623840899092,           !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    3.083117929304,           !- Vertex 1 Zcoordinate
+    6.623840899092,           !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    1.083117929304,           !- Vertex 2 Zcoordinate
+    8.623840899092,           !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    1.083117929304,           !- Vertex 3 Zcoordinate
+    8.623840899092,           !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    3.083117929304;           !- Vertex 4 Zcoordinate
+
+FenestrationSurface:Detailed,
+    856F52,                   !- Name
+    Window,                   !- Surface Type
+    window_1,                 !- Construction Name
+    DE6A22,                   !- Building Surface Name
+    ,                         !- Outside Boundary Condition Object
+    ,                         !- View Factor to Ground
+    ,                         !- Frame and Divider Name
+    ,                         !- Multiplier
+    4,                        !- Number of Vertices
+    1.837423299565,           !- Vertex 1 Xcoordinate
+    0,                        !- Vertex 1 Ycoordinate
+    3.083117929304,           !- Vertex 1 Zcoordinate
+    1.837423299565,           !- Vertex 2 Xcoordinate
+    0,                        !- Vertex 2 Ycoordinate
+    1.083117929304,           !- Vertex 2 Zcoordinate
+    3.837423299565,           !- Vertex 3 Xcoordinate
+    0,                        !- Vertex 3 Ycoordinate
+    1.083117929304,           !- Vertex 3 Zcoordinate
+    3.837423299565,           !- Vertex 4 Xcoordinate
+    0,                        !- Vertex 4 Ycoordinate
+    3.083117929304;           !- Vertex 4 Zcoordinate
+
+People,
+    occupation,               !- Name
+    9467A6,                   !- Zone or ZoneList Name
+    Office Occupancy Schedule,    !- Number of People Schedule Name
+    People,                   !- Number of People Calculation Method
+    4,                        !- Number of People
+    ,                         !- People per Zone Floor Area
+    ,                         !- Zone Floor Area per Person
+    0.3,                      !- Fraction Radiant
+    autocalculate,            !- Sensible Heat Fraction
+    Office Activity Schedule,    !- Activity Level Schedule Name
+    3.82e-08,                 !- Carbon Dioxide Generation Rate
+    No,                       !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged;             !- Mean Radiant Temperature Calculation Type
+
+HVACTemplate:Thermostat,
+    thermostat,               !- Name
+    ,                         !- Heating Setpoint Schedule Name
+    20,                       !- Constant Heating Setpoint
+    ,                         !- Cooling Setpoint Schedule Name
+    25;                       !- Constant Cooling Setpoint
+
+HVACTemplate:Zone:IdealLoadsAirSystem,
+    9467A6,                   !- Zone Name
+    thermostat,               !- Template Thermostat Name
+    ,                         !- System Availability Schedule Name
+    50,                       !- Maximum Heating Supply Air Temperature
+    13,                       !- Minimum Cooling Supply Air Temperature
+    0.0156,                   !- Maximum Heating Supply Air Humidity Ratio
+    0.0077,                   !- Minimum Cooling Supply Air Humidity Ratio
+    NoLimit,                  !- Heating Limit
+    ,                         !- Maximum Heating Air Flow Rate
+    ,                         !- Maximum Sensible Heating Capacity
+    NoLimit,                  !- Cooling Limit
+    ,                         !- Maximum Cooling Air Flow Rate
+    ,                         !- Maximum Total Cooling Capacity
+    ,                         !- Heating Availability Schedule Name
+    ,                         !- Cooling Availability Schedule Name
+    ConstantSensibleHeatRatio,    !- Dehumidification Control Type
+    0.7,                      !- Cooling Sensible Heat Ratio
+    60,                       !- Dehumidification Setpoint
+    None,                     !- Humidification Control Type
+    30,                       !- Humidification Setpoint
+    None,                     !- Outdoor Air Method
+    0.00944,                  !- Outdoor Air Flow Rate per Person
+    0,                        !- Outdoor Air Flow Rate per Zone Floor Area
+    0,                        !- Outdoor Air Flow Rate per Zone
+    ,                         !- Design Specification Outdoor Air Object Name
+    None;                     !- Demand Controlled Ventilation Type
+
+Output:VariableDictionary,
+    IDF;                      !- Key Field
+
+Output:Variable,
+    *,                        !- Key Value
+    Zone Mean Air Temperature,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Zone Ideal Loads Supply Air Total Cooling Energy,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Zone Ideal Loads Supply Air Sensible Heating Energy,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Zone Thermal Comfort ASHRAE 55 Simple Model Summer or Winter Clothes Not Comfortable Time,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Variable,
+    *,                        !- Key Value
+    Zone People Occupant Count,    !- Variable Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Meter,
+    DistrictHeating:HVAC,     !- Key Name
+    Hourly;                   !- Reporting Frequency
+
+Output:Meter,
+    DistrictCooling:HVAC,     !- Key Name
+    Hourly;                   !- Reporting Frequency
